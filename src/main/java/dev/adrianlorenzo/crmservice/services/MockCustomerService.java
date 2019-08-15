@@ -20,14 +20,11 @@ public class MockCustomerService implements CustomerService {
 
     @Override
     public Customer findById(Long id) {
-        return repository.findById(id).get();
+        return repository.findById(id).orElse(null);
     }
 
     @Override
-    public Long create(Customer customer) {
-        update(customer);
-        return customer.getId();
-    }
+    public Long create(Customer customer) { return repository.saveAndFlush(customer).getId(); }
 
     @Override
     public void update(Customer customer) {

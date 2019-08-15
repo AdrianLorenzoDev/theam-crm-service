@@ -15,7 +15,7 @@ public class Customer {
     @Column(name="surname", nullable = false)
     private String surname;
     private String image;
+
     private String modifiedBy;
-    @Column(name="createdBy", nullable = false)
     private String createdBy;
 }

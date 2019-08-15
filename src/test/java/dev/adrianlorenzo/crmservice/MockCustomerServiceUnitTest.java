@@ -36,17 +36,9 @@ public class MockCustomerServiceUnitTest {
 
     private Customer customer1;
 
-
     @Before
     public void initializeResources(){
-        customer1 = new Customer();
-        customer1.setId(1L);
-        customer1.setCreatedBy("Adrian");
-        customer1.setModifiedBy("Adrian");
-        customer1.setImage("an_image");
-        customer1.setName("citlalli");
-        customer1.setSurname("mateo");
-
+        customer1 = TestUtils.getMockCustomer(1L);
     }
 
     @Test

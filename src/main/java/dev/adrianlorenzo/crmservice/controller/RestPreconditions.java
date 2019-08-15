@@ -1,7 +1,8 @@
 package dev.adrianlorenzo.crmservice.controller;
 
-import dev.adrianlorenzo.crmservice.controller.resourceExceptions.InvalidResourceException;
-import dev.adrianlorenzo.crmservice.controller.resourceExceptions.ResourceNotFoundException;
+import dev.adrianlorenzo.crmservice.resourceExceptions.FileNotAnImageException;
+import dev.adrianlorenzo.crmservice.resourceExceptions.InvalidResourceException;
+import dev.adrianlorenzo.crmservice.resourceExceptions.ResourceNotFoundException;
 import dev.adrianlorenzo.crmservice.model.Customer;
 
 public class RestPreconditions {
@@ -13,12 +14,11 @@ public class RestPreconditions {
         return resource;
     }
 
-    public static Customer checkIfValid(Customer customer) throws InvalidResourceException {
+    public static Customer checkIfValidCustomer(Customer customer) throws InvalidResourceException {
         if (customer == null) {
             throw new InvalidResourceException();
         }
-        if (customer.getId() == null ||
-                customer.getName() == null ||
+        if (customer.getName() == null ||
                 customer.getSurname() == null){
             throw new InvalidResourceException();
         }
@@ -26,5 +26,10 @@ public class RestPreconditions {
         return customer;
     }
 
+    public static void checkIfImage(String contentType) throws FileNotAnImageException {
+        if (! contentType.startsWith("image/")){
+            throw new FileNotAnImageException();
+        }
+    }
 }
 

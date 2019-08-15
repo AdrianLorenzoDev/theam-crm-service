@@ -1,12 +1,11 @@
 package dev.adrianlorenzo.crmservice.controller;
 
-import dev.adrianlorenzo.crmservice.controller.resourceExceptions.InvalidResourceException;
-import dev.adrianlorenzo.crmservice.controller.resourceExceptions.ResourceNotFoundException;
+import dev.adrianlorenzo.crmservice.resourceExceptions.InvalidResourceException;
+import dev.adrianlorenzo.crmservice.resourceExceptions.ResourceNotFoundException;
 import dev.adrianlorenzo.crmservice.model.Customer;
 import dev.adrianlorenzo.crmservice.services.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -27,56 +26,28 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public Customer findCustomerById(@PathVariable("id") Long id){
-        try {
-            return RestPreconditions.checkNotNull(service.findById(id));
-        } catch (ResourceNotFoundException e) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Requested customer not found", e);
-        }
+    public Customer findCustomerById(@PathVariable("id") Long id) throws ResourceNotFoundException {
+        return RestPreconditions.checkNotNull(service.findById(id));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Long createCustomer(@RequestBody Customer resource) {
-        try {
-            RestPreconditions.checkIfValid(resource);
-            return service.create(resource);
-        } catch (InvalidResourceException e) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Invalid customer supplied in request", e);
-        }
+    public Long createCustomer(@RequestBody Customer resource) throws InvalidResourceException {
+        return service.create(RestPreconditions.checkIfValidCustomer(resource));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable( "id" ) Long id, @RequestBody Customer resource) {
-        try {
-            RestPreconditions.checkIfValid(resource);
-            try {
-                RestPreconditions.checkNotNull(service.findById(resource.getId()));
-                service.update(resource);
-            } catch (ResourceNotFoundException e) {
-                throw new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Requested customer not found", e);
-            }
-        } catch (InvalidResourceException e) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Invalid customer supplied in request", e);
-        }
-
+    public void updateCustomer(@RequestBody Customer customer)
+            throws InvalidResourceException, ResourceNotFoundException {
+        RestPreconditions.checkIfValidCustomer(customer);
+        RestPreconditions.checkNotNull(service.findById(customer.getId()));
+        service.update(customer);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable("id") Long id) {
-        try {
-            service.delete(
-                    RestPreconditions.checkNotNull(service.findById(id))
-            );
-        } catch (ResourceNotFoundException e) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Requested customer not found", e);
-        }
+    public void deleteCustomer(@PathVariable("id") Long id) throws ResourceNotFoundException {
+        service.delete(RestPreconditions.checkNotNull(service.findById(id)));
     }
 }
