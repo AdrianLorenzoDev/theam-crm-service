@@ -4,9 +4,11 @@ import dev.adrianlorenzo.crmservice.controller.ImageStorageController;
 import dev.adrianlorenzo.crmservice.resourceExceptions.InvalidResourceException;
 import dev.adrianlorenzo.crmservice.resourceExceptions.StorageException;
 import dev.adrianlorenzo.crmservice.services.StorageService;
+
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -20,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static org.mockito.BDDMockito.given;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -40,22 +43,21 @@ public class ImageStorageControllerUnitTest {
     private Resource resource;
 
     /**
-    @Before
-    public void initializeResources() throws MalformedURLException {
-        resource = new UrlResource(Paths.get(IMAGE_PATH).toUri());
-    }
-    */
+     @Before public void initializeResources() throws MalformedURLException {
+     resource = new UrlResource(Paths.get(IMAGE_PATH).toUri());
+     }
+     */
 
     /**
-    @Test
-    @DisplayName("Download image and image was found")
-    public void downloadImage_imageFound() throws Exception, ResourceNotFoundException {
-        given(storageService.loadAsResource("example_image")).willReturn(resource);
-
-        mockMvc.perform(get("/api/images/" + "example.JPG").contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-    }
-    */
+     * @Test
+     * @DisplayName("Download image and image was found")
+     * public void downloadImage_imageFound() throws Exception, ResourceNotFoundException {
+     * given(storageService.loadAsResource("example_image")).willReturn(resource);
+     * <p>
+     * mockMvc.perform(get("/api/images/" + "example.JPG").contentType(MediaType.APPLICATION_JSON))
+     * .andExpect(status().isOk());
+     * }
+     */
 
     @Test
     @DisplayName("Upload image")

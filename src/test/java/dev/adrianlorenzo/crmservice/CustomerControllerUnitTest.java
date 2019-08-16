@@ -3,11 +3,14 @@ package dev.adrianlorenzo.crmservice;
 import dev.adrianlorenzo.crmservice.controller.CustomerController;
 import dev.adrianlorenzo.crmservice.model.Customer;
 import dev.adrianlorenzo.crmservice.services.CustomerService;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
+
 import org.mockito.Mockito;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -20,7 +23,9 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+
 import static org.mockito.BDDMockito.given;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -38,7 +43,7 @@ public class CustomerControllerUnitTest {
     private Customer customer1;
 
     @Before
-    public void initializeResources(){
+    public void initializeResources() {
         customer1 = TestUtils.getMockCustomer(1L);
     }
 
@@ -58,7 +63,7 @@ public class CustomerControllerUnitTest {
     @DisplayName("GET Customer by Id and found")
     public void getCustomerById_andFound() throws Exception {
         given(customerService.findById(customer1.getId())).willReturn(customer1);
-        mockMvc.perform(get("/api/customers/"+ customer1.getId())
+        mockMvc.perform(get("/api/customers/" + customer1.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(customer1.getName())))
@@ -70,7 +75,7 @@ public class CustomerControllerUnitTest {
     @DisplayName("GET Customer by Id and not found")
     public void getCustomerById_andNotFound() throws Exception {
         given(customerService.findById(3L)).willReturn(null);
-        mockMvc.perform(get("/api/customers/"+ 3)
+        mockMvc.perform(get("/api/customers/" + 3)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
@@ -80,10 +85,10 @@ public class CustomerControllerUnitTest {
     public void createValidCustomer() throws Exception {
         given(customerService.create(customer1)).willReturn(1L);
         mockMvc.perform(post("/api/customers")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtils.toJson(customer1).getBytes()))
-            .andExpect(status().isCreated())
-            .andExpect(jsonPath("$", is(customer1.getId().intValue())));
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestUtils.toJson(customer1).getBytes()))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$", is(customer1.getId().intValue())));
     }
 
     @Test

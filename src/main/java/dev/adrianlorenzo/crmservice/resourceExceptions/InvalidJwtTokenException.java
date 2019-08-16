@@ -1,4 +1,4 @@
 package dev.adrianlorenzo.crmservice.resourceExceptions;
 
-public class FileNotAnImageException extends Throwable {
+public class InvalidJwtTokenException extends Throwable {
 }

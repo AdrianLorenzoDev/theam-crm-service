@@ -4,6 +4,7 @@ import dev.adrianlorenzo.crmservice.resourceExceptions.InvalidResourceException;
 import dev.adrianlorenzo.crmservice.resourceExceptions.ResourceNotFoundException;
 import dev.adrianlorenzo.crmservice.resourceExceptions.StorageException;
 import dev.adrianlorenzo.crmservice.properties.StorageProperties;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -37,7 +38,7 @@ public class MockStorageService implements StorageService {
     public String store(MultipartFile file) throws InvalidResourceException, StorageException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         try {
-            if(fileName.contains("..")) {
+            if (fileName.contains("..")) {
                 throw new InvalidResourceException();
             }
 
@@ -55,7 +56,7 @@ public class MockStorageService implements StorageService {
         try {
             Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
             Resource resource = new UrlResource(filePath.toUri());
-            if(resource.exists()) {
+            if (resource.exists()) {
                 return resource;
             } else {
                 throw new ResourceNotFoundException();

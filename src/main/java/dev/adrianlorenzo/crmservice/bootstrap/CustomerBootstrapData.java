@@ -8,21 +8,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomerBootstrapData implements CommandLineRunner {
 
-    private final CustomerRepository customerRepository;
+    private final CustomerRepository repository;
 
-    public CustomerBootstrapData(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
+    public CustomerBootstrapData(CustomerRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         Customer customer2 = new Customer();
-        customer2.setCreatedBy("Adrian2");
-        customer2.setModifiedBy("Adrian2");
         customer2.setImage("an_image2");
         customer2.setName("sora");
         customer2.setSurname("lorenzo");
 
-        customerRepository.save(customer2);
+        repository.save(customer2);
     }
 }

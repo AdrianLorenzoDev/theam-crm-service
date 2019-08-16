@@ -63,7 +63,7 @@ public class ImageStorageController {
         String fileName = service.store(file);
 
         String uri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(BASE_URL+"/")
+                .path(BASE_URL + "/")
                 .path(fileName)
                 .toUriString();
 

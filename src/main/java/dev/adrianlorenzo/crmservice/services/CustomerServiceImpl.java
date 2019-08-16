@@ -2,13 +2,14 @@ package dev.adrianlorenzo.crmservice.services;
 
 import dev.adrianlorenzo.crmservice.model.Customer;
 import dev.adrianlorenzo.crmservice.repositories.CustomerRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class MockCustomerService implements CustomerService {
+public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private CustomerRepository repository;
@@ -24,7 +25,9 @@ public class MockCustomerService implements CustomerService {
     }
 
     @Override
-    public Long create(Customer customer) { return repository.saveAndFlush(customer).getId(); }
+    public Long create(Customer customer) {
+        return repository.saveAndFlush(customer).getId();
+    }
 
     @Override
     public void update(Customer customer) {
