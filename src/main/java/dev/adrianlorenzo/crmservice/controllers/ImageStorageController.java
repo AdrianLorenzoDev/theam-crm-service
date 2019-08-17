@@ -1,4 +1,4 @@
-package dev.adrianlorenzo.crmservice.controller;
+package dev.adrianlorenzo.crmservice.controllers;
 
 import dev.adrianlorenzo.crmservice.resourceExceptions.FileNotAnImageException;
 import dev.adrianlorenzo.crmservice.resourceExceptions.InvalidResourceException;
@@ -25,6 +25,7 @@ import java.io.IOException;
 @RequestMapping(ImageStorageController.BASE_URL)
 public class ImageStorageController {
     static final String BASE_URL = "/api/images";
+
     private final StorageService service;
 
     @Autowired
@@ -56,6 +57,7 @@ public class ImageStorageController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.OK)
     public UploadedImageResponse imageUpload(@RequestParam("file") MultipartFile file)
             throws FileNotAnImageException, StorageException, InvalidResourceException {
 

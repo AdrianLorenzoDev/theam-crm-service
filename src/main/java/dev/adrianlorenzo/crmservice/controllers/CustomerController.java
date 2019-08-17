@@ -1,4 +1,4 @@
-package dev.adrianlorenzo.crmservice.controller;
+package dev.adrianlorenzo.crmservice.controllers;
 
 import dev.adrianlorenzo.crmservice.model.Customer;
 import dev.adrianlorenzo.crmservice.model.User;
@@ -10,7 +10,6 @@ import dev.adrianlorenzo.crmservice.services.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

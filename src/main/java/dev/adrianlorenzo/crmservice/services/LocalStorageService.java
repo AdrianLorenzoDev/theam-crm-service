@@ -20,12 +20,12 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 @Service
-public class MockStorageService implements StorageService {
+public class LocalStorageService implements StorageService {
 
     private final Path fileStorageLocation;
 
     @Autowired
-    public MockStorageService(StorageProperties storageProperties) throws StorageException {
+    public LocalStorageService(StorageProperties storageProperties) throws StorageException {
         fileStorageLocation = Paths.get(storageProperties.getUploadDir()).toAbsolutePath().normalize();
         try {
             Files.createDirectories(this.fileStorageLocation);

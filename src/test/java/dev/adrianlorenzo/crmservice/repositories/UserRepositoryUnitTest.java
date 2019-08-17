@@ -1,7 +1,7 @@
-package dev.adrianlorenzo.crmservice;
+package dev.adrianlorenzo.crmservice.repositories;
 
-import dev.adrianlorenzo.crmservice.model.Customer;
-import dev.adrianlorenzo.crmservice.repositories.CustomerRepository;
+import dev.adrianlorenzo.crmservice.TestUtils;
+import dev.adrianlorenzo.crmservice.model.User;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,27 +17,32 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class CustomerRepositoryUnitTest {
+public class UserRepositoryUnitTest {
+    /**
+     * UserRepository autowired by Spring.
+     * No custom SQL queries implemented.
+     */
+
     @Autowired
     private TestEntityManager entityManager;
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private UserRepository userRepository;
 
-    private Customer customer1;
+    private User user;
 
     @Before
     public void initializeResources() {
-        customer1 = TestUtils.getMockCustomer(null);
+        user = TestUtils.getMockUser(null);
     }
 
     @Test
     public void mockTest() {
-        entityManager.persist(customer1);
+        entityManager.persist(user);
         entityManager.flush();
 
-        Customer found = customerRepository.findById(customer1.getId()).get();
+        User found = userRepository.findById(user.getId()).get();
 
-        assertThat(found.getId(), is(customer1.getId()));
+        assertThat(found.getId(), is(user.getId()));
     }
 }

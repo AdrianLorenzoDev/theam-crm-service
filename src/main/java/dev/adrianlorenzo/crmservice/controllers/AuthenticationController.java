@@ -1,4 +1,4 @@
-package dev.adrianlorenzo.crmservice.controller;
+package dev.adrianlorenzo.crmservice.controllers;
 
 import dev.adrianlorenzo.crmservice.config.JwtTokenProvider;
 import dev.adrianlorenzo.crmservice.model.AuthenticationRequest;

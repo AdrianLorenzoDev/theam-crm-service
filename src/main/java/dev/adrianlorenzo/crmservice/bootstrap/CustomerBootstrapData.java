@@ -2,6 +2,7 @@ package dev.adrianlorenzo.crmservice.bootstrap;
 
 import dev.adrianlorenzo.crmservice.model.Customer;
 import dev.adrianlorenzo.crmservice.repositories.CustomerRepository;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
