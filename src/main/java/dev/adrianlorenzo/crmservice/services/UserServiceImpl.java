@@ -31,12 +31,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User findByUsername(String username) throws ResourceNotFoundException {
-        User user = repository.findByUsername(username);
-        if (user == null) {
-            throw new ResourceNotFoundException();
-        }
-        return user;
+    public User findByUsername(String username) {
+        return repository.findByUsername(username);
     }
 
     @Override
@@ -45,14 +41,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void update(User user) throws ResourceNotFoundException {
-        findByUsername(user.getUsername());
+    public void update(User user) {
         repository.save(user);
     }
 
     @Override
-    public void delete(User user) throws ResourceNotFoundException {
-        findByUsername(user.getUsername());
+    public void delete(User user) {
         repository.delete(user);
     }
 

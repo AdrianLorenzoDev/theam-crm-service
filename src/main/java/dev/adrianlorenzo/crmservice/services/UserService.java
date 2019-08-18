@@ -10,13 +10,13 @@ import java.util.List;
 public interface UserService extends UserDetailsService {
     List<User> findAll();
 
-    User findByUsername(String username) throws ResourceNotFoundException;
+    User findByUsername(String username);
 
     Long create(User user);
 
-    void update(User user) throws ResourceNotFoundException;
+    void update(User user);
 
-    void delete(User user) throws ResourceNotFoundException;
+    void delete(User user);
 
     User findById(Long id);
 }

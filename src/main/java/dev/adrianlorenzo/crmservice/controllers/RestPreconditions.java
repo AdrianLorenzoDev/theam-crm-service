@@ -5,6 +5,7 @@ import dev.adrianlorenzo.crmservice.resourceExceptions.FileNotAnImageException;
 import dev.adrianlorenzo.crmservice.resourceExceptions.InvalidResourceException;
 import dev.adrianlorenzo.crmservice.resourceExceptions.ResourceNotFoundException;
 import dev.adrianlorenzo.crmservice.model.Customer;
+import dev.adrianlorenzo.crmservice.resourceExceptions.UsernameUsedException;
 
 public class RestPreconditions {
     public static <T> T checkNotNull(T resource) throws ResourceNotFoundException {
@@ -42,6 +43,12 @@ public class RestPreconditions {
     public static void checkIfImage(String contentType) throws FileNotAnImageException {
         if (!contentType.startsWith("image/")) {
             throw new FileNotAnImageException();
+        }
+    }
+
+    public static void checkIfUsernameIsUsed(User user) throws UsernameUsedException {
+        if(user != null){
+            throw new UsernameUsedException();
         }
     }
 }

@@ -1,9 +1,6 @@
 package dev.adrianlorenzo.crmservice.controllers;
 
-import dev.adrianlorenzo.crmservice.resourceExceptions.FileNotAnImageException;
-import dev.adrianlorenzo.crmservice.resourceExceptions.InvalidResourceException;
-import dev.adrianlorenzo.crmservice.resourceExceptions.ResourceNotFoundException;
-import dev.adrianlorenzo.crmservice.resourceExceptions.StorageException;
+import dev.adrianlorenzo.crmservice.resourceExceptions.*;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -44,4 +41,10 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
                 new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
+    @ExceptionHandler(value = {UsernameUsedException.class})
+    protected ResponseEntity<Object> usernameUsedExceptionHandler(RuntimeException e, WebRequest request) {
+        String body = "Username is already in use";
+        return handleExceptionInternal(e, body,
+                new HttpHeaders(), HttpStatus.FORBIDDEN, request);
+    }
 }

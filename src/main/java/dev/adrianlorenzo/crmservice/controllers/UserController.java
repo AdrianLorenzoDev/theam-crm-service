@@ -3,6 +3,7 @@ package dev.adrianlorenzo.crmservice.controllers;
 import dev.adrianlorenzo.crmservice.model.User;
 import dev.adrianlorenzo.crmservice.resourceExceptions.InvalidResourceException;
 import dev.adrianlorenzo.crmservice.resourceExceptions.ResourceNotFoundException;
+import dev.adrianlorenzo.crmservice.resourceExceptions.UsernameUsedException;
 import dev.adrianlorenzo.crmservice.services.UserService;
 
 import org.springframework.http.HttpStatus;
@@ -36,8 +37,9 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Long createUser(@RequestBody User user) throws InvalidResourceException {
+    public Long createUser(@RequestBody User user) throws InvalidResourceException, UsernameUsedException {
         user.setPassword(encoder.encode(user.getPassword()));
+        RestPreconditions.checkIfUsernameIsUsed(service.findByUsername(user.getUsername()));
         user.setDeleted(false);
         return service.create(RestPreconditions.checkIfValidUser(user));
     }
@@ -45,9 +47,10 @@ public class UserController {
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public void updateUser(@RequestBody User user)
-            throws InvalidResourceException, ResourceNotFoundException {
+            throws InvalidResourceException, ResourceNotFoundException, UsernameUsedException {
         RestPreconditions.checkIfValidUser(user);
         RestPreconditions.checkNotNull(service.findById(user.getId()));
+        RestPreconditions.checkIfUsernameIsUsed(service.findByUsername(user.getUsername()));
         user.setPassword(encoder.encode(user.getPassword()));
         user.setDeleted(false);
         service.update(user);
