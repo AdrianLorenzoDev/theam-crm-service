@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationEntryPoint getRestEntryPoint() {
         return (request, response, authException) ->
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized request");
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Unauthorized request");
     }
 
     @Bean

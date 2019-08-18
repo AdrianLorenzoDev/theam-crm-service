@@ -1,13 +1,12 @@
 package dev.adrianlorenzo.crmservice.config;
 
-import dev.adrianlorenzo.crmservice.resourceExceptions.InvalidJwtTokenException;
-
 import io.jsonwebtoken.MalformedJwtException;
+
+import io.jsonwebtoken.SignatureException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
-import javax.security.sasl.AuthenticationException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -35,7 +34,7 @@ public class JwtTokenFilter extends GenericFilterBean {
                 auth = jwtTokenProvider.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
-        } catch (MalformedJwtException e) {
+        } catch (SignatureException | MalformedJwtException e) {
             ((HttpServletResponse) res).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
         filterChain.doFilter(req, res);
