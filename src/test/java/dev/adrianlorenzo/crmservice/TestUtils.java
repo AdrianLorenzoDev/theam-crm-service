@@ -6,8 +6,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dev.adrianlorenzo.crmservice.model.User;
 import dev.adrianlorenzo.crmservice.model.UserRole;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class TestUtils {
+
     public static String toJson(Object resource) {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
