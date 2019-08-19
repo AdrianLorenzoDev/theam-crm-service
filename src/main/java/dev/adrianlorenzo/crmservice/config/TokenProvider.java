@@ -15,5 +15,5 @@ public interface TokenProvider {
 
     String getTokenFromRequest(HttpServletRequest req);
 
-    boolean validateToken(String token) throws InvalidJwtTokenException;
+    boolean validateToken(String token);
 }

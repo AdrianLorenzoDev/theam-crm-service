@@ -29,8 +29,8 @@ public class CustomerServiceImplUnitTest {
     @TestConfiguration
     static class MockCustomerServiceTestContextConfiguration {
         @Bean
-        public CustomerService customerService() {
-            return new CustomerServiceImpl();
+        public CustomerService customerService(CustomerRepository customerRepository) {
+            return new CustomerServiceImpl(customerRepository);
         }
     }
 

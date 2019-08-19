@@ -3,9 +3,7 @@ package dev.adrianlorenzo.crmservice.services;
 import dev.adrianlorenzo.crmservice.model.User;
 import dev.adrianlorenzo.crmservice.model.UserDetailsImpl;
 import dev.adrianlorenzo.crmservice.repositories.UserRepository;
-import dev.adrianlorenzo.crmservice.resourceExceptions.ResourceNotFoundException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,8 +14,11 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
-    @Autowired
-    private UserRepository repository;
+    private final UserRepository repository;
+
+    public UserServiceImpl(UserRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public List<User> findAll() {

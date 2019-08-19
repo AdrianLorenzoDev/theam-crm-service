@@ -2,7 +2,6 @@ package dev.adrianlorenzo.crmservice.model;
 
 import lombok.Data;
 
-import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 

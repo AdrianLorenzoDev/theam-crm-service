@@ -1,6 +1,5 @@
 package dev.adrianlorenzo.crmservice.config;
 
-import dev.adrianlorenzo.crmservice.resourceExceptions.InvalidJwtTokenException;
 import dev.adrianlorenzo.crmservice.services.UserService;
 
 import io.jsonwebtoken.*;
@@ -8,7 +7,6 @@ import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -69,7 +67,7 @@ public class JwtTokenProvider implements TokenProvider {
     }
 
     @Override
-    public boolean validateToken(String token) throws MalformedJwtException {
+    public boolean validateToken(String token) throws ExpiredJwtException, MalformedJwtException, SignatureException {
         Jws<Claims> claims = Jwts.parser().setSigningKey(key).parseClaimsJws(token);
         return !claims.getBody().getExpiration().before(new Date());
     }

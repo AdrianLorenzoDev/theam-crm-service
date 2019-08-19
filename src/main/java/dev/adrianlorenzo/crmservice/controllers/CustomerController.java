@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(CustomerController.BASE_URL)
+@RequestMapping("/api/customers")
 public class CustomerController {
 
-    static final String BASE_URL = "/api/customers";
     private final CustomerService service;
 
 

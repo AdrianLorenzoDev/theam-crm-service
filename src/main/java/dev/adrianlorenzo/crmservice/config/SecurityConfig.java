@@ -1,6 +1,7 @@
 package dev.adrianlorenzo.crmservice.config;
 
-import dev.adrianlorenzo.crmservice.services.UserServiceImpl;
+import dev.adrianlorenzo.crmservice.repositories.UserRepository;
+import dev.adrianlorenzo.crmservice.services.UserService;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +11,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -23,19 +23,16 @@ import javax.servlet.http.HttpServletResponse;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtTokenProvider jwtTokenProvider;
+    private final UserService userService;
 
-    public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
+    public SecurityConfig(JwtTokenProvider jwtTokenProvider, UserService userService) {
         this.jwtTokenProvider = jwtTokenProvider;
+        this.userService = userService;
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(getUserService()).passwordEncoder(getPasswordEncoder());
-    }
-
-    @Bean
-    public UserDetailsService getUserService() {
-        return new UserServiceImpl();
+        auth.userDetailsService(userService).passwordEncoder(getPasswordEncoder());
     }
 
     @Bean

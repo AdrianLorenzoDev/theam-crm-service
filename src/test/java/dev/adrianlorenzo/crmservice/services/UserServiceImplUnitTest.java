@@ -27,8 +27,8 @@ public class UserServiceImplUnitTest {
     @TestConfiguration
     static class MockUserServiceTestContextConfiguration {
         @Bean
-        public UserService userService() {
-            return new UserServiceImpl();
+        public UserService userService(UserRepository userRepository) {
+            return new UserServiceImpl(userRepository);
         }
     }
 

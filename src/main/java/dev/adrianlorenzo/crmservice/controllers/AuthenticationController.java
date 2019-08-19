@@ -5,7 +5,6 @@ import dev.adrianlorenzo.crmservice.model.AuthenticationRequest;
 import dev.adrianlorenzo.crmservice.resourceExceptions.ResourceNotFoundException;
 import dev.adrianlorenzo.crmservice.services.UserService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,23 +22,30 @@ import static org.springframework.http.ResponseEntity.ok;
 @RequestMapping("/api/auth")
 public class AuthenticationController {
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
+
+    public AuthenticationController(AuthenticationManager authenticationManager,
+                                    JwtTokenProvider jwtTokenProvider, UserService userService) {
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.userService = userService;
+    }
 
     @PostMapping
-    public ResponseEntity login(@RequestBody AuthenticationRequest data) throws ResourceNotFoundException {
-        String username = data.getUsername();
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
-        String token = jwtTokenProvider.getToken(username,
-                this.userService.findByUsername(username).getUserRole().getAuthority());
-        Map<Object, Object> model = new HashMap<>();
-        model.put("username", username);
+    public ResponseEntity login(@RequestBody AuthenticationRequest user) throws ResourceNotFoundException {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+
+        String token = jwtTokenProvider.getToken(user.getUsername(),
+                RestPreconditions.checkNotNull(userService.findByUsername(user.getUsername()))
+                        .getUserRole().getAuthority());
+
+        Map<String, String> model = new HashMap<>();
+        model.put("username", user.getUsername());
         model.put("token", token);
         return ok(model);
     }

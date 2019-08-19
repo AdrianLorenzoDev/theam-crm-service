@@ -48,5 +48,5 @@ docker run -p port1:port2 org/appname
 - [x] Service containerization
 - [ ] Testing, testing and... more testing
 
-### Secundary objectives
+### Secondary objectives
 - [ ] OAuth 2 authentication protocol integration

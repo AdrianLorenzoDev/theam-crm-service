@@ -22,9 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @RestController
-@RequestMapping(ImageStorageController.BASE_URL)
+@RequestMapping("/api/images")
 public class ImageStorageController {
-    static final String BASE_URL = "/api/images";
 
     private final StorageService service;
 
@@ -40,7 +39,7 @@ public class ImageStorageController {
 
         Resource image = service.loadAsResource(filename);
 
-        String contentType = null;
+        String contentType;
         try {
             contentType = request.getServletContext().getMimeType(image.getFile().getAbsolutePath());
         } catch (IOException e) {
@@ -65,7 +64,7 @@ public class ImageStorageController {
         String fileName = service.store(file);
 
         String uri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(BASE_URL + "/")
+                .path("/api/images/")
                 .path(fileName)
                 .toUriString();
 

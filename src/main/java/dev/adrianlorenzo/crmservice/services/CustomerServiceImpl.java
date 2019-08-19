@@ -3,7 +3,6 @@ package dev.adrianlorenzo.crmservice.services;
 import dev.adrianlorenzo.crmservice.model.Customer;
 import dev.adrianlorenzo.crmservice.repositories.CustomerRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +10,11 @@ import java.util.List;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-    @Autowired
-    private CustomerRepository repository;
+    private final CustomerRepository repository;
+
+    public CustomerServiceImpl(CustomerRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public List<Customer> findAll() {

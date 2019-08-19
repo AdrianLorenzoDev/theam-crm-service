@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class ImageStorageControllerUnitTest {
 
-    static final String IMAGE_PATH = "/Users/adrianlorenzo/Desktop/example/example.JPG";
+    private static final String IMAGE_PATH = "/Users/adrianlorenzo/Desktop/example/example.JPG";
 
     @Autowired
     public MockMvc mockMvc;

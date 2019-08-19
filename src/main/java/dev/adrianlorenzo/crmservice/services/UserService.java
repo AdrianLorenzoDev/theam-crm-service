@@ -1,7 +1,6 @@
 package dev.adrianlorenzo.crmservice.services;
 
 import dev.adrianlorenzo.crmservice.model.User;
-import dev.adrianlorenzo.crmservice.resourceExceptions.ResourceNotFoundException;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 

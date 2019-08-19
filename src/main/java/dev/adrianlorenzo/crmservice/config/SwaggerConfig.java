@@ -2,7 +2,6 @@ package dev.adrianlorenzo.crmservice.config;
 
 import dev.adrianlorenzo.crmservice.properties.ApiDocsProperties;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,8 +19,11 @@ import java.util.Collections;
 @EnableSwagger2
 public class SwaggerConfig {
 
-    @Autowired
-    private ApiDocsProperties properties;
+    private final ApiDocsProperties properties;
+
+    public SwaggerConfig(ApiDocsProperties properties) {
+        this.properties = properties;
+    }
 
     @Bean
     public Docket api() {

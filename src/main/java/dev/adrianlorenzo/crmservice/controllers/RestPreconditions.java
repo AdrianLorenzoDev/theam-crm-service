@@ -7,7 +7,7 @@ import dev.adrianlorenzo.crmservice.resourceExceptions.ResourceNotFoundException
 import dev.adrianlorenzo.crmservice.model.Customer;
 import dev.adrianlorenzo.crmservice.resourceExceptions.UsernameUsedException;
 
-public class RestPreconditions {
+class RestPreconditions {
     public static <T> T checkNotNull(T resource) throws ResourceNotFoundException {
         if (resource == null) {
             throw new ResourceNotFoundException();
