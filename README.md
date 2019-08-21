@@ -40,13 +40,13 @@ Next and finally, run it:
 docker run -p port1:port2 org/appname
 ```
 
-### Main objectives
+### Main objectives!
 - [x] Customer domain definition, service, repository and rest controller
 - [x] Image storage service and rest controller
 - [x] Users domain definition, service, repository and rest controller
 - [x] Authentication and authorization system
 - [x] Service containerization
-- [ ] Testing, testing and... more testing
+- [x] Testing, testing and... more testing
 
 ### Secondary objectives
 - [ ] OAuth 2 authentication protocol integration

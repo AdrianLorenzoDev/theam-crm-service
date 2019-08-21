@@ -24,7 +24,7 @@ public class LocalStorageServiceUnitTest {
      */
 
     @TestConfiguration
-    static class MockCustomerServiceTestContextConfiguration {
+    static class MockStorageServiceTestContextConfiguration {
         @Bean
         public StorageService storageService(StorageProperties storageProperties)
                 throws StorageException {
